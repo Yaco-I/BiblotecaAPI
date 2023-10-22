@@ -30,7 +30,7 @@ namespace Biblioteca.Infrastructure
             }
             catch(Exception e)
             {
-                throw new Exception("No se pudo insertar el registro", ex);
+                throw new Exception("No se pudo insertar el registro", e);
             }
         }
         public async Task<T> UpdateAsync(T entity)
