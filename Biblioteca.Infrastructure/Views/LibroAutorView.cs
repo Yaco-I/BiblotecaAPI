@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Biblioteca.Infrastructure.Views
 {
-    public class LibroConAutorView
+    public class LibroAutorView
     {
-        public int  Id{ get; set; }
+        public int  LibroId { get; set; }
         public string Titulo { get; set; }
         public string Resumen { get; set; }
         public DateTime FechaPublicacion { get; set; }

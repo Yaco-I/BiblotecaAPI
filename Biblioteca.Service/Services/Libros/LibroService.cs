@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Biblioteca.Infrastructure;
+using Biblioteca.Infrastructure.Migrations;
 using Biblioteca.Infrastructure.Models;
+using Biblioteca.Infrastructure.Views;
 using Biblioteca.Service.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +83,21 @@ public class LibrosService : ILibroService
         return _mapper.Map<IEnumerable<LibroDto>>(entities);
     }
 
+    public async Task<IEnumerable<LibroAutorView>> SearchLibroConAutor(LibroAutorViewFilter libroConAutorFilter)
+    {
+        var result = _context.LibroAutorView.FromSqlInterpolated($@"EXEC [dbo].[LibroConAutorGetByFilter]
+        @LibroId = {libroConAutorFilter.LibroId},
+        @Titulo = {libroConAutorFilter.Titulo},
+        @Resumen = {libroConAutorFilter.Resumen},
+        @AutorId = {libroConAutorFilter.AutorId},
+        @Nombre = {libroConAutorFilter.Nombre},
+        @Seudonimo = {libroConAutorFilter.Seudonimo},
+        @PageNumber = {libroConAutorFilter.PageNumber},
+        @PageSize = {libroConAutorFilter.PageSize}")
+        .ToList();
+
+        return result;
+    }
 
 
 }

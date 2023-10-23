@@ -1,4 +1,6 @@
-﻿using Biblioteca.Infrastructure.Models;
+﻿using Biblioteca.Infrastructure.Migrations;
+using Biblioteca.Infrastructure.Models;
+using Biblioteca.Infrastructure.Views;
 using Biblioteca.Service.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,5 +18,7 @@ namespace Biblioteca.Service.Services.Libros
         Task<bool> DeleteAsync(int id);
         Task<LibroDto> GetByIdAsync(int id);
         Task<IEnumerable<LibroDto>> GetAllAsync();
+
+        Task<IEnumerable<LibroAutorView>> SearchLibroConAutor(LibroAutorViewFilter libroConAutorFilter);
     }
 }

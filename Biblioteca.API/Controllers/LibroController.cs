@@ -1,4 +1,5 @@
 ﻿using Biblioteca.Infrastructure.Models;
+using Biblioteca.Infrastructure.Views;
 using Biblioteca.Service.DTOs;
 using Biblioteca.Service.Services.Libros;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,6 +19,20 @@ namespace Biblioteca.API.Controllers
 
 
         #region Queries
+        [HttpPost("SearchLibroAutorView")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = ApplicationConstants.AllClaims)]
+        public async Task<ActionResult<IEnumerable<LibroAutorView>>> SearchLibroAsync(LibroAutorViewFilter libroAutorViewFilter)
+        {
+            try
+            {
+                return Ok(await librosService.SearchLibroConAutor(libroAutorViewFilter));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = ApplicationConstants.AllClaims)]
         public async Task<ActionResult<IEnumerable<LibroDto>>> GetLibrosAsync()
